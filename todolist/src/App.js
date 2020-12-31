@@ -1,9 +1,17 @@
-import React from 'react'
-import './App.css';
-import ToDoList from './components/ToDoList'
+import React from 'react';
+import SingleToDo from './components/SingleToDo';
+
  export class App extends React.Component{
   state = {
       todos: []
+  }
+  deleteToDo = (id) => {
+    this.setState((prevState) => {
+      const filteredToDos = prevState.todos.filter((el, i) => i !== id )
+      return {
+        todos: filteredToDos
+      }
+    })
   }
 
   handelSubmit = (e) => {
@@ -26,7 +34,8 @@ render(){
         <form onSubmit={this.handelSubmit}>
             <input type="text" placeholder="i will .." />
         </form>
-      <ToDoList todosArr={todos}/>
+        <ul>{todos.map((el, i) => <SingleToDo task = {el} id={i} key={i} delete = {this.deleteToDo}/>)}</ul>
+
     </div>
   );
 }}
