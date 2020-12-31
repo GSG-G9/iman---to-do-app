@@ -13,6 +13,19 @@ import SingleToDo from './components/SingleToDo';
       }
     })
   }
+  editToDo = (id, newTask) => {
+    this.setState((prevState) => {
+      const updatedToDos = prevState.todos.map((el, i) => {
+        if(id === i){
+          return newTask
+        }
+        return el
+      })
+      return {
+        todos: updatedToDos
+      }
+    })
+  }
 
   handelSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +47,11 @@ render(){
         <form onSubmit={this.handelSubmit}>
             <input type="text" placeholder="i will .." />
         </form>
-        <ul>{todos.map((el, i) => <SingleToDo task = {el} id={i} key={i} delete = {this.deleteToDo}/>)}</ul>
+        <ul>{todos.map((el, i) => <SingleToDo 
+        task = {el}
+        id={i} key={i} 
+        delete={this.deleteToDo} 
+        edit={this.editToDo}/>)}</ul>
 
     </div>
   );
